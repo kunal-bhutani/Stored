@@ -81,32 +81,37 @@ class ExpiringViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Perform the deletion here
-         
-            let section = indexPath.section
-            let expiryCategory = StorageLocationData.getInstance().getExpiryCategory(forString: sections[section])
-            guard var items = expiringCategorizedItems[expiryCategory] else { return }
+                        // Perform the deletion here
+            
+                        let section = indexPath.section
+                        let expiryCategory = StorageLocationData.getInstance().getExpiryCategory(forString: sections[section])
+                        guard var items = expiringCategorizedItems[expiryCategory] else { return }
             
             
-            let item = items[indexPath.row]
-
-            
-            expiringNavigationController?.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.inventoryCollectionView.reloadData()
-            // Remove the item from the categorizedItems dictionary
-            items.remove(at: indexPath.row)
-            expiringCategorizedItems[expiryCategory] = items
-            
-            // Delete the row from the table view
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            if (items.isEmpty){
-                self.upadateSections()
-                tableView.reloadData()
+                        let item = items[indexPath.row]
+            //
+            //
+            //            expiringNavigationController?.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.inventoryCollectionView.reloadData()
+            //            // Remove the item from the categorizedItems dictionary
+            //            items.remove(at: indexPath.row)
+            //            expiringCategorizedItems[expiryCategory] = items
+            //
+            //            // Delete the row from the table view
+            //            DatabaseManager.shared.deleteItem(householdCode: <#T##String#>, for: <#T##Item#>, completion: <#T##((any Error)?) -> Void#>)
+            //
+            //            tableView.deleteRows(at: [indexPath], with: .fade)
+            //            if (items.isEmpty){
+            //                self.upadateSections()
+            //                tableView.reloadData()
+            //            }
+            //            // Perform any additional deletion operations here, such as updating the backend
+            //
+            //            // For demonstration purposes, you can print the deleted item
+            //            print("Deleted item: \(item)")
+            //        }
+            DatabaseManager.shared.deleteItem(householdCode: UserData.getInstance().user?.household?.code ?? "", for: item){_ in
+                
             }
-            // Perform any additional deletion operations here, such as updating the backend
-            
-            // For demonstration purposes, you can print the deleted item
-            print("Deleted item: \(item)")
         }
     }
     

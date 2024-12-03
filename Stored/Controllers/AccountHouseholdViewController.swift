@@ -36,7 +36,7 @@ class AccountHouseholdViewController: UIViewController, UITableViewDelegate, UIT
             cell.houseHoldTextField.text = UserData.getInstance().user?.household?.name
             cell.household = UserData.getInstance().user?.household
             cell.accountDelegate = accountViewController
-            cell.householdDelegate = accountViewController!.accountNavigtionController?.storedTabBarController?.householdNavigationController?.householdViewController
+//            cell.householdDelegate = accountViewController!.accountNavigtionController?.storedTabBarController?.householdNavigationController?.householdViewController
             self.householdNameCell = cell
             return cell
         }else if indexPath.section == 1{

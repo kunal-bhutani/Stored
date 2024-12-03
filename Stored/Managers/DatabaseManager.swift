@@ -131,7 +131,7 @@ final class DatabaseManager {
             // Check if the user has a household associated with them
             if let householdData = userData["household"] as? [String: Any] {
                 // If yes, reload household table view (if needed) and pass household code to completion handler
-                self.storedTabBarController?.householdNavigationController?.householdViewController?.householdTableView.reloadData()
+//                self.storedTabBarController?.householdNavigationController?.householdViewController?.householdTableView.reloadData()
                 completion(user, householdData["code"] as? String)
             } else {
                 // If not, indicate that the user doesn't have a house
@@ -227,7 +227,7 @@ final class DatabaseManager {
                         completion(false)
                     } else {
                         HouseholdData.getInstance().householdMembers = []
-                        self.storedTabBarController?.householdNavigationController?.householdViewController?.householdTableView.reloadData()
+//                        self.storedTabBarController?.householdNavigationController?.householdViewController?.householdTableView.reloadData()
                         self.storedTabBarController?.accountNavigationController?.accountViewController?.accountHouseholdViewController?.accountHouseholdTableView.reloadData()
                         print("User successfully left household")
                         completion(true)
@@ -528,7 +528,7 @@ final class DatabaseManager {
                 if let addedUser = addedUser {
                     // Handle the added user
                     HouseholdData.getInstance().addMember(user : addedUser)
-                    self.storedTabBarController?.householdNavigationController?.householdViewController?.householdTableView.reloadData()
+//                    self.storedTabBarController?.householdNavigationController?.householdViewController?.householdTableView.reloadData()
                     self.storedTabBarController?.accountNavigationController?.accountViewController?.accountHouseholdViewController?.accountHouseholdTableView.reloadData()
                     print("User added to household: \(user.firstName) \(user.lastName)")
                     // You can perform any necessary actions here
@@ -554,7 +554,7 @@ final class DatabaseManager {
                 if let removedUser = removedUser {
                     // Handle the removed user
                     HouseholdData.getInstance().removeMember(user: removedUser)
-                    self.storedTabBarController?.householdNavigationController?.householdViewController?.householdTableView.reloadData()
+//                    self.storedTabBarController?.householdNavigationController?.householdViewController?.householdTableView.reloadData()
                     self.storedTabBarController?.accountNavigationController?.accountViewController?.accountHouseholdViewController?.accountHouseholdTableView.reloadData()
                     print("User removed from household: \(removedUser.firstName) \(removedUser.lastName)")
                     // You can perform any necessary actions here
@@ -653,9 +653,12 @@ final class DatabaseManager {
                         
                         // Reload UI elements to reflect the updated item
                         self.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.inventoryCollectionView.reloadData()
-                        self.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.inventoryTableView.reloadData()
+                        self.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.itemAdded()
                         self.storedTabBarController?.expiringNavigationController?.expiringViewController?.reloadTable()
                         self.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.inventoryStorageViewController?.itemAdded()
+                        self.storedTabBarController?.expiringNavigationController?.expiringViewController?.itemAdded()
+                        self.storedTabBarController?.accountNavigationController?.accountViewController?.accountTableView.reloadRows(at: [IndexPath(row: 0, section: 0), IndexPath(row: 1, section: 0)], with: .automatic)
+                        
                         print("Item updated in local storage successfully")
                     } else {
                         print("Local storage not found")
@@ -695,9 +698,11 @@ final class DatabaseManager {
                 
                 // Reload UI or perform any necessary actions to reflect the deletion
                 self.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.inventoryCollectionView.reloadData()
-                self.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.inventoryTableView.reloadData()
+                self.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.itemAdded()
                 self.storedTabBarController?.expiringNavigationController?.expiringViewController?.reloadTable()
                 self.storedTabBarController?.inventoryNavigationController?.inventoryViewController?.inventoryStorageViewController?.itemAdded()
+                self.storedTabBarController?.expiringNavigationController?.expiringViewController?.itemAdded()
+                self.storedTabBarController?.accountNavigationController?.accountViewController?.accountTableView.reloadRows(at: [IndexPath(row: 0, section: 0), IndexPath(row: 1, section: 0)], with: .automatic)
                 
                 print("Item deleted from local storage successfully")
             } else {
