@@ -476,7 +476,7 @@ extension InventoryNavigationController: AVCaptureMetadataOutputObjectsDelegate 
             captureSession!.stopRunning()
             
             let tintColor = UIColor(named: "Text Color")!
-            let bgColor = UIColor(named: "Background Color")!
+            let bgColor = UIColor(named: "Description Color")!
             loadingIndicator = UIActivityIndicatorView(style: .large)
             loadingIndicator?.color = tintColor
             loadingIndicator?.startAnimating()

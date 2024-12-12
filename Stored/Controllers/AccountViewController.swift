@@ -281,7 +281,7 @@ class AccountViewController: UIViewController,UITableViewDelegate,UITableViewDat
         let path = "images/" + fileName
         
         StorageManager.shared.downloadURL(for: path, completion: {result in
-            switch result {
+            switch result { 
             case .success(let url) :
                 self.downloadImage(from: url)
             case .failure(let error) :

@@ -20,11 +20,14 @@ class BillButton: UIButton {
 
     private func setupButton() {
         // Set button image
-        let buttonImage = UIImage(systemName: "plus.circle")
+        let buttonImage = UIImage(systemName: "plus.circle.fill")?
+            .withConfiguration(UIImage.SymbolConfiguration(pointSize: 37, weight: .regular, scale: .large)) // Adjust size here
+
         setImage(buttonImage, for: .normal)
         self.setImage(buttonImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+        tintColor = UIColor(named: "Background")
         
-
+        titleLabel?.font = UIFont.systemFont(ofSize: 300)  // Adjust font size here
         // Apply drop shadow
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5
@@ -41,7 +44,10 @@ extension BillButton {
         
         NSLayoutConstraint.activate([
             trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100),
-            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -26)
+            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -26),
+            
+//            widthAnchor.constraint(equalToConstant: 80),  // Adjust width here
+//            heightAnchor.constraint(equalToConstant: 60)
         ])
 
         // Make sure the button is above all other views

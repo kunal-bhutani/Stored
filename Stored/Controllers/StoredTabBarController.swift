@@ -30,17 +30,17 @@ class StoredTabBarController: UITabBarController {
             viewController.storedTabBarController = self
             print("2 DOne")
         }
-        if let viewController = viewControllers?[2] as? QuickAddNavigationViewController {
-            quickAddNavigationController = viewController
-            viewController.storedTabBarController = self
-            print("3 DOne")
-        }
+//        if let viewController = viewControllers?[2] as? QuickAddNavigationViewController {
+//            quickAddNavigationController = viewController
+//            viewController.storedTabBarController = self
+//            print("3 DOne")
+//        }
 //        if let viewController = viewControllers?[3] as? HouseholdNavigationController {
 //            householdNavigationController = viewController
 //            viewController.storedTabBarController = self
 //            print("4 DOne")
 //        }
-        if let viewController = viewControllers?[3] as? AccountNavigationController {
+        if let viewController = viewControllers?[2] as? AccountNavigationController {
             accountNavigationController = viewController
             viewController.storedTabBarController = self
             print("5 DOne")
