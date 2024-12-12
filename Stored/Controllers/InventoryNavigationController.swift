@@ -77,7 +77,9 @@ class InventoryNavigationController: UINavigationController, AVCapturePhotoCaptu
     @objc private func billButtonTapped(_ sender: UIButton) {
         print("Bill Button tapped!")
 //        presentCameraViewController()
-        presentBillViewController()
+        
+//        presentBillViewController()
+        displayCustomAlert(productNameString: "", productImageUrl: "")
     }
     // MARK: - Camera Handling
     
@@ -369,6 +371,7 @@ class InventoryNavigationController: UINavigationController, AVCapturePhotoCaptu
     }
     
     @objc private func manuallyAddButtonTapped() {
+        print("manual button tapped")
         captureSession?.stopRunning()
         displayCustomAlert(productNameString: "", productImageUrl: "")
     }

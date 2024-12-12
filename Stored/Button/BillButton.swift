@@ -20,7 +20,7 @@ class BillButton: UIButton {
 
     private func setupButton() {
         // Set button image
-        let buttonImage = UIImage(named: "BillScanButtonSmall")
+        let buttonImage = UIImage(systemName: "plus.circle")
         setImage(buttonImage, for: .normal)
         self.setImage(buttonImage?.withRenderingMode(.alwaysOriginal), for: .normal)
         
