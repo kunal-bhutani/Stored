@@ -126,24 +126,24 @@
                                     <constraint firstAttribute="height" constant="120" id="dDP-2x-FIc"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cId-VO-QDV">
-                                    <size key="itemSize" width="180" height="90"/>
+                                    <size key="itemSize" width="326" height="117"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExpiringCollectionCell" id="v0z-BZ-e4c" customClass="ExpiringCollectionViewCell" customModule="Stored" customModuleProvider="target">
-                                        <rect key="frame" x="90.666666666666671" y="0.0" width="180" height="90"/>
+                                        <rect key="frame" x="17.666666666666668" y="0.0" width="326" height="117"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mRL-da-8bH">
-                                            <rect key="frame" x="0.0" y="0.0" width="180" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="326" height="117"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zOJ-Lk-5Mi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="45"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="326" height="45"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6IV-M1-kK1">
-                                                            <rect key="frame" x="62" y="0.0" width="56.333333333333343" height="45"/>
+                                                            <rect key="frame" x="135" y="0.0" width="56.333333333333343" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -156,13 +156,13 @@
                                                     </constraints>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jI3-IT-Cqb">
-                                                    <rect key="frame" x="0.0" y="45" width="180" height="45"/>
+                                                    <rect key="frame" x="0.0" y="45" width="326" height="72"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="6fY-rn-9Ch">
-                                                            <rect key="frame" x="16" y="0.0" width="148" height="29"/>
+                                                            <rect key="frame" x="16" y="0.0" width="294" height="56"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4f-SS-Mbc">
-                                                                    <rect key="frame" x="0.0" y="9.6666666666666625" width="148" height="19.333333333333329"/>
+                                                                    <rect key="frame" x="0.0" y="36.666666666666671" width="294" height="19.333333333333329"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -192,7 +192,7 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" name="Background Color"/>
-                                        <size key="customSize" width="180" height="90"/>
+                                        <size key="customSize" width="326" height="117"/>
                                         <connections>
                                             <outlet property="bottomLabel" destination="Q4f-SS-Mbc" id="UHn-9p-lpQ"/>
                                             <outlet property="bottomView" destination="jI3-IT-Cqb" id="6QP-u6-ECt"/>
@@ -227,7 +227,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-790" y="801"/>
+            <point key="canvasLocation" x="-790.07633587786256" y="800.70422535211276"/>
         </scene>
         <!--Account-->
         <scene sceneID="2Zg-t3-plI">

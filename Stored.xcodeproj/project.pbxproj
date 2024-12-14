@@ -622,7 +622,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8N6D23QF8N;
+				DEVELOPMENT_TEAM = 8QH3G8UQLN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Stored/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Stored would like to access your camera to scan codes";
@@ -637,7 +637,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cookies.www.Storedx;
+				PRODUCT_BUNDLE_IDENTIFIER = cookies.www.Stored1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -654,7 +654,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8N6D23QF8N;
+				DEVELOPMENT_TEAM = 8QH3G8UQLN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Stored/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Stored would like to access your camera to scan codes";
@@ -669,7 +669,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cookies.www.Storedx;
+				PRODUCT_BUNDLE_IDENTIFIER = cookies.www.Stored1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -160,38 +160,58 @@ class ExpiringViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        2
+        1
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = expiringCollectionView.dequeueReusableCell(withReuseIdentifier: "ExpiringCollectionCell", for: indexPath) as! ExpiringCollectionViewCell
+//        if indexPath.row == 0 {
+//            let upperStackHexcode = "#78D444"
+//            let bottomContainerHexcode = "#E2F9A1"
+//            let upperStackColor = UIColor(hex: upperStackHexcode)
+//            let bottomContainerColor = UIColor(hex: bottomContainerHexcode)
+//            cell.topLabel.text = "6 Weeks"
+//            cell.bottomLabel.text = "Of #ZeroWaste"
+//            cell.upperStackView.backgroundColor = upperStackColor
+//            cell.bottomView.backgroundColor = bottomContainerColor
+//        }else{
+//            let upperStackHexcode = "#D70015"
+//            let bottomContainerHexcode = "#F4B7BD"
+//            let upperStackColor = UIColor(hex: upperStackHexcode)
+//            let bottomContainerColor = UIColor(hex: bottomContainerHexcode)
+//            let expiredItemsCount = StorageLocation.all.items.filter { $0.isExpired }.count
+//            cell.topLabel.text = "\(expiredItemsCount) Items"
+//            cell.bottomLabel.text = "Expired Items"
+//            cell.upperStackView.backgroundColor = upperStackColor
+//            cell.bottomView.backgroundColor = bottomContainerColor
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+//            cell.addGestureRecognizer(tapGesture)
+//        }
+//        cell.layer.cornerRadius = 10
+//        cell.layer.masksToBounds = true
+//        return cell
+//    }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = expiringCollectionView.dequeueReusableCell(withReuseIdentifier: "ExpiringCollectionCell", for: indexPath) as! ExpiringCollectionViewCell
-        if indexPath.row == 0 {
-            let upperStackHexcode = "#78D444"
-            let bottomContainerHexcode = "#E2F9A1"
-            let upperStackColor = UIColor(hex: upperStackHexcode)
-            let bottomContainerColor = UIColor(hex: bottomContainerHexcode)
-            cell.topLabel.text = "6 Weeks"
-            cell.bottomLabel.text = "Of #ZeroWaste"
-            cell.upperStackView.backgroundColor = upperStackColor
-            cell.bottomView.backgroundColor = bottomContainerColor
-        }else{
-            let upperStackHexcode = "#D70015"
-            let bottomContainerHexcode = "#F4B7BD"
-            let upperStackColor = UIColor(hex: upperStackHexcode)
-            let bottomContainerColor = UIColor(hex: bottomContainerHexcode)
-            let expiredItemsCount = StorageLocation.all.items.filter { $0.isExpired }.count
-            cell.topLabel.text = "\(expiredItemsCount) Items"
-            cell.bottomLabel.text = "Expired Items"
-            cell.upperStackView.backgroundColor = upperStackColor
-            cell.bottomView.backgroundColor = bottomContainerColor
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-            cell.addGestureRecognizer(tapGesture)
-        }
+        
+        let upperStackHexcode = "#D70015"
+        let bottomContainerHexcode = "#F4B7BD"
+        let upperStackColor = UIColor(hex: upperStackHexcode)
+        let bottomContainerColor = UIColor(hex: bottomContainerHexcode)
+        let expiredItemsCount = StorageLocation.all.items.filter { $0.isExpired }.count
+        cell.topLabel.text = "\(expiredItemsCount) Items"
+        cell.bottomLabel.text = "Expired Items"
+        cell.upperStackView.backgroundColor = upperStackColor
+        cell.bottomView.backgroundColor = bottomContainerColor
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        cell.addGestureRecognizer(tapGesture)
+        
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         return cell
     }
-    
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         // Perform the segue programmatically
         performSegue(withIdentifier: "ExpiredSegue", sender: nil)

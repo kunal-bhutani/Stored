@@ -216,7 +216,7 @@ class LoginViewController: UIViewController {
         passwordVisibilityToggle = UIButton(type: .custom)
         passwordVisibilityToggle.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         passwordVisibilityToggle.setImage(UIImage(systemName: "eye"), for: .selected)
-        passwordVisibilityToggle.tintColor = UIColor.lightGraye
+        passwordVisibilityToggle.tintColor = .gray
         passwordVisibilityToggle.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
         passwordVisibilityToggle.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         passwordTextField.rightView = passwordVisibilityToggle

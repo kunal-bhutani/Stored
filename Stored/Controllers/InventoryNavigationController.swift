@@ -370,6 +370,70 @@ class InventoryNavigationController: UINavigationController, AVCapturePhotoCaptu
         ])
     }
     
+    
+    
+    private func setupManuallyAddButton(on view: UIView?) {
+        // Ensure the view is valid
+        guard let view = view else {
+            showAlert(title: "Error", message: "The view is nil. Cannot add the button.")
+            return
+        }
+
+        // Create the button
+        let manuallyAddButton = UIButton(type: .system)
+
+        // Check and set required properties
+        let title = "Add Manually"
+        if title.isEmpty {
+            showAlert(title: "Error", message: "The button title is missing. Please provide a valid title.")
+            return
+        }
+        manuallyAddButton.setTitle(title, for: .normal)
+
+        let backgroundColor: UIColor = .white
+        manuallyAddButton.backgroundColor = backgroundColor
+
+        let titleColor: UIColor = .black
+        manuallyAddButton.setTitleColor(titleColor, for: .normal)
+
+        guard let font = UIFont(name: "System", size: 16) else {
+            showAlert(title: "Error", message: "The button font is missing. Please set a valid font.")
+            return
+        }
+        manuallyAddButton.titleLabel?.font = font
+
+        let cornerRadius: CGFloat = 8
+        manuallyAddButton.layer.cornerRadius = cornerRadius
+
+        // Set the button's action
+        manuallyAddButton.addTarget(self, action: #selector(manuallyAddButtonTapped), for: .touchUpInside)
+
+        // Set layout
+        manuallyAddButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(manuallyAddButton)
+
+        // Add constraints
+        NSLayoutConstraint.activate([
+            manuallyAddButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            manuallyAddButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 110),
+            manuallyAddButton.widthAnchor.constraint(equalToConstant: 250),
+            manuallyAddButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+
+    // Helper method to show alerts
+    private func showAlert(title: String, message: String) {
+        guard let topViewController = UIApplication.shared.keyWindow?.rootViewController else {
+            print("Error: Unable to access the top view controller to present the alert.")
+            return
+        }
+
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        topViewController.present(alert, animated: true)
+    }
+
+    
     @objc private func manuallyAddButtonTapped() {
         print("manual button tapped")
         captureSession?.stopRunning()
