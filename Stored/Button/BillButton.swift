@@ -20,14 +20,11 @@ class BillButton: UIButton {
 
     private func setupButton() {
         // Set button image
-        let buttonImage = UIImage(systemName: "plus.circle.fill")?
-            .withConfiguration(UIImage.SymbolConfiguration(pointSize: 37, weight: .regular, scale: .large)) // Adjust size here
-
+        let buttonImage = UIImage(named: "plusCircle")
         setImage(buttonImage, for: .normal)
         self.setImage(buttonImage?.withRenderingMode(.alwaysOriginal), for: .normal)
-        tintColor = UIColor(named: "Background")
         
-        titleLabel?.font = UIFont.systemFont(ofSize: 300)  // Adjust font size here
+
         // Apply drop shadow
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5
@@ -35,6 +32,7 @@ class BillButton: UIButton {
         layer.shadowRadius = 4
 
     }
+
 
 }
 extension BillButton {
@@ -44,10 +42,10 @@ extension BillButton {
         
         NSLayoutConstraint.activate([
             trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100),
-            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -26),
+            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -28),
             
-//            widthAnchor.constraint(equalToConstant: 80),  // Adjust width here
-//            heightAnchor.constraint(equalToConstant: 60)
+            widthAnchor.constraint(equalToConstant: 47),  // Adjust width here
+            heightAnchor.constraint(equalToConstant: 47)
         ])
 
         // Make sure the button is above all other views
@@ -56,3 +54,21 @@ extension BillButton {
     }
 }
 
+//extension ScanItemButton {
+//    func setupUI(in view: UIView) {
+//        // Add button to the view
+//        view.addSubview(self)
+//        
+//        // Setup constraints for button (bottom right corner)
+//        NSLayoutConstraint.activate([
+//            trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+//            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+//        ])
+//
+//        // Make sure the button is above all other views
+//        view.bringSubviewToFront(self)
+//
+//    }
+//}
+//
+//

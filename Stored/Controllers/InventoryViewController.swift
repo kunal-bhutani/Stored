@@ -32,6 +32,7 @@ class InventoryViewController: UIViewController, UICollectionViewDelegate, UICol
         cell.itemExpiryLabel.text = item.expiryDescription
         if item.isExpired {
             cell.itemExpiryLabel.textColor = .red
+            print("making red")
         }
         cell.itemStorageLabel.text = item.storage
         if let image = item.image{

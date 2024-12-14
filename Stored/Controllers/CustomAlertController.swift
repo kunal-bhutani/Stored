@@ -170,38 +170,95 @@ class CustomAlertController: UIViewController, UIImagePickerControllerDelegate &
         picker.dismiss(animated: true, completion: nil)
     }
     
+//    private func handleAddButtonTapped() {
+//        
+//        guard titleTextField.text != "" else { return }
+//        guard (itemImageView.image?.isSymbolImage) == false else {
+//            print("Image Not found")
+//            return}
+//        let itemImage = itemImageView.image!
+//        let itemName = titleTextField.text!
+//        let itemQuantity = Int(quantityLabel.text ?? "0") ?? 1
+//        let itemExpiryDate = datePicker.date
+//        let selectedStorageIndex = pickerView.selectedRow(inComponent: 0)
+//        let itemStorage = storageLocations[selectedStorageIndex]
+//        productStorageIndex = selectedStorageIndex
+//        guard let email = FirebaseAuth.Auth.auth().currentUser?.email else {
+//            print("email not found")
+//            return
+//        }
+//        let safeEmail = StorageManager.safeEmail(email: email)
+//        
+////        if let url = productImageUrl {
+////            let newItem = Item(name: itemName, quantity: itemQuantity, storage: itemStorage, dateAdded : productDateAdded ?? Date(), expiryDate: itemExpiryDate, imageURL: url, image: itemImage, userId: safeEmail)
+////            addItemToStorage(newItem, at: selectedStorageIndex)
+////        }else {
+////            
+////            let newItem = Item(name: itemName, quantity: itemQuantity, storage: itemStorage, dateAdded : productDateAdded ?? Date(), expiryDate: itemExpiryDate, image: itemImage, userId: safeEmail)
+////            addItemToStorage(newItem, at: selectedStorageIndex)
+////        }
+//        
+//        let newItem = Item(name: itemName, quantity: itemQuantity, storage: itemStorage, dateAdded : productDateAdded ?? Date(), expiryDate: itemExpiryDate, imageURL: productImageUrl, image: itemImage, userId: safeEmail)
+//        addItemToStorage(newItem, at: selectedStorageIndex)
+//    }
+    
     private func handleAddButtonTapped() {
+        // Check if title field is empty
+        guard let itemName = titleTextField.text, !itemName.isEmpty else {
+            showAlert(title: "Missing Information", message: "Please enter a title for the item.")
+            return
+        }
         
-        guard titleTextField.text != "" else { return }
-        guard (itemImageView.image?.isSymbolImage) == false else {
-            print("Image Not found")
-            return}
-        let itemImage = itemImageView.image!
-        let itemName = titleTextField.text!
-        let itemQuantity = Int(quantityLabel.text ?? "0") ?? 1
+        // Check if an image is selected
+        guard let itemImage = itemImageView.image, !(itemImage.isSymbolImage) else {
+            showAlert(title: "Image Missing", message: "Please select an image for the item.")
+            return
+        }
+        
+        // Check if quantity field is valid
+        guard let quantityText = quantityLabel.text, let itemQuantity = Int(quantityText), itemQuantity > 0 else {
+            showAlert(title: "Invalid Quantity", message: "Please enter a valid quantity greater than zero.")
+            return
+        }
+        
+        // Get the expiry date from the date picker
         let itemExpiryDate = datePicker.date
+        
+        // Get the selected storage location
         let selectedStorageIndex = pickerView.selectedRow(inComponent: 0)
         let itemStorage = storageLocations[selectedStorageIndex]
         productStorageIndex = selectedStorageIndex
+        
+        // Get the current user's email
         guard let email = FirebaseAuth.Auth.auth().currentUser?.email else {
-            print("email not found")
+            showAlert(title: "Error", message: "Unable to retrieve user information. Please try again.")
             return
         }
         let safeEmail = StorageManager.safeEmail(email: email)
         
-//        if let url = productImageUrl {
-//            let newItem = Item(name: itemName, quantity: itemQuantity, storage: itemStorage, dateAdded : productDateAdded ?? Date(), expiryDate: itemExpiryDate, imageURL: url, image: itemImage, userId: safeEmail)
-//            addItemToStorage(newItem, at: selectedStorageIndex)
-//        }else {
-//            
-//            let newItem = Item(name: itemName, quantity: itemQuantity, storage: itemStorage, dateAdded : productDateAdded ?? Date(), expiryDate: itemExpiryDate, image: itemImage, userId: safeEmail)
-//            addItemToStorage(newItem, at: selectedStorageIndex)
-//        }
+        // Create the new Item object
+        let newItem = Item(
+            name: itemName,
+            quantity: itemQuantity,
+            storage: itemStorage,
+            dateAdded: productDateAdded ?? Date(),
+            expiryDate: itemExpiryDate,
+            imageURL: productImageUrl,
+            image: itemImage,
+            userId: safeEmail
+        )
         
-        let newItem = Item(name: itemName, quantity: itemQuantity, storage: itemStorage, dateAdded : productDateAdded ?? Date(), expiryDate: itemExpiryDate, imageURL: productImageUrl, image: itemImage, userId: safeEmail)
+        // Add the new item to storage
         addItemToStorage(newItem, at: selectedStorageIndex)
     }
-    
+
+    // MARK: - Helper Function to Show Alerts
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
+
     func isSystemPhotoImage(_ image: UIImage?) -> Bool {
         let systemImageName = "photo"
         guard let image = image else { return false }

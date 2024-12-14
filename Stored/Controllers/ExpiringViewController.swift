@@ -1,7 +1,34 @@
 import UIKit
 import FirebaseAuth
 
-class ExpiringViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate,UICollectionViewDataSource, CustomAlertRefreshDelegate, QuickAddDelegate {
+class ExpiringViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate, UICollectionViewDelegate,UICollectionViewDataSource, CustomAlertRefreshDelegate, QuickAddDelegate {
+    @IBOutlet weak var itemSearch: UISearchBar!
+    
+    // This will filter the items based on the search text
+      func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+          // If search text is empty, we show all items
+          if searchText.isEmpty {
+              expiringCategorizedItems = StorageLocationData.getInstance().categorizeExpiringItems(UserData.getInstance().user?.household?.storages[4].items ?? [])
+          } else {
+              // Filter items based on the search text
+              filterItems(searchText: searchText)
+          }
+          upadateSections() // Update sections after filtering
+          expiringTableView.reloadData() // Reload the table view with filtered data
+      }
+
+      // This method filters the items based on the search text
+      func filterItems(searchText: String) {
+          expiringCategorizedItems = StorageLocationData.getInstance().categorizeExpiringItems(UserData.getInstance().user?.household?.storages[4].items ?? [])
+          
+          for (category, items) in expiringCategorizedItems {
+              expiringCategorizedItems[category] = items.filter { item in
+                  // Check if the item name or storage matches the search text (case insensitive)
+                  return item.name.lowercased().contains(searchText.lowercased()) || item.storage.lowercased().contains(searchText.lowercased())
+              }
+          }
+      }
+    
     func itemAdded() {
         print("Tabel refefefe")
         expiringCategorizedItems = StorageLocationData.getInstance().categorizeExpiringItems(UserData.getInstance().user?.household?.storages[4].items ?? [])
@@ -28,6 +55,10 @@ class ExpiringViewController: UIViewController, UITableViewDelegate, UITableView
         cell.itemNameLabel.text = item.name
         cell.itemExpiryLabel.text = item.expiryDescription
         cell.storageLabel.text = item.storage
+        if item.isExpired {
+            cell.itemExpiryLabel.textColor = .red
+            print("making red")
+        }
         if let image = item.image{
             cell.itemImage.image = image
         }else{
@@ -232,14 +263,25 @@ class ExpiringViewController: UIViewController, UITableViewDelegate, UITableView
         upadateSections()
         expiringTableView.dataSource = self
         expiringTableView.delegate = self
+        itemSearch.delegate = self // Set the delegate for the search bar
         let layout = generateGridLayout()
-        expiringCollectionView.delegate = self
-        expiringCollectionView.dataSource = self
-        expiringCollectionView.collectionViewLayout = layout
-        expiringCollectionView.isScrollEnabled = false
+//        expiringCollectionView.delegate = self
+//        expiringCollectionView.dataSource = self
+//        expiringCollectionView.collectionViewLayout = layout
+//        expiringCollectionView.isScrollEnabled = false
         
         
     }
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // Reset search and show all items
+        searchBar.text = ""
+        expiringCategorizedItems = StorageLocationData.getInstance().categorizeExpiringItems(UserData.getInstance().user?.household?.storages[4].items ?? [])
+        upadateSections()
+        expiringTableView.reloadData()
+    }
+
     
     func validateAuth(class : ExpiringViewController){
         if FirebaseAuth.Auth.auth().currentUser == nil {

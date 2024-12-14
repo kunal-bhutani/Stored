@@ -1,4 +1,5 @@
 import Foundation
+import FirebaseAuth
 import FirebaseDatabase
 
 final class DatabaseManager {
@@ -137,6 +138,82 @@ final class DatabaseManager {
                 // If not, indicate that the user doesn't have a house
                 print("User doesn't have a household")
                 completion(user, nil)
+            }
+        })
+    }
+
+    
+    // delete user
+    
+    public func deleteUser(email: String, completion: @escaping (Bool, String?) -> Void) {
+        // Get the safe email from the provided email address
+        let safeEmail = StorageManager.safeEmail(email: email)
+        
+        // Step 1: Retrieve user data to check if the user exists
+        database.child("users").child(safeEmail).observeSingleEvent(of: .value, with: { snapshot in
+            guard let userData = snapshot.value as? [String: Any] else {
+                // User data not found or error occurred
+                completion(false, "User not found.")
+                print("User data not found")
+                return
+            }
+            
+            // Step 2: Remove user data from 'users' collection
+            self.database.child("users").child(safeEmail).removeValue { error, _ in
+                if let error = error {
+                    completion(false, "Error removing user from database: \(error.localizedDescription)")
+                    print("Error removing user from database: \(error.localizedDescription)")
+                    return
+                }
+                print("User data removed from database successfully.")
+                
+                // Step 3: If the user has a household, remove them from all associated households
+                if let householdData = userData["household"] as? [String: Any] {
+                    let householdCode = householdData["code"] as? String ?? ""
+                    self.database.child("households").observeSingleEvent(of: .value, with: { snapshot in
+                        guard let households = snapshot.value as? [String: Any] else {
+                            completion(false, "No households found.")
+                            return
+                        }
+                        
+                        var updates: [String: Any] = [:]
+                        
+                        for (householdID, household) in households {
+                            if var householdInfo = household as? [String: Any],
+                               var userIDs = householdInfo["userIDs"] as? [String: Any] {
+                                
+                                // Remove the user from userIDs
+                                userIDs[safeEmail] = nil
+                                householdInfo["userIDs"] = userIDs
+                                
+                                // Prepare the update for the household
+                                updates["households/\(householdID)/userIDs"] = userIDs
+                            }
+                        }
+                        
+                        // Apply the household updates
+                        self.database.updateChildValues(updates) { error, _ in
+                            if let error = error {
+                                completion(false, "Error removing user from households: \(error.localizedDescription)")
+                                return
+                            }
+                            print("User removed from all households successfully.")
+                        }
+                    })
+                }
+                
+                // Step 4: Delete the user from Firebase Authentication
+                if let user = Auth.auth().currentUser {
+                    user.delete { error in
+                        if let error = error {
+                            completion(false, "Error deleting user from Firebase Auth: \(error.localizedDescription)")
+                            print("Error deleting user from Firebase Auth: \(error.localizedDescription)")
+                        } else {
+                            print("User account deleted from Firebase Auth successfully.")
+                            completion(true, nil)
+                        }
+                    }
+                }
             }
         })
     }
@@ -822,3 +899,5 @@ final class DatabaseManager {
         // ...
     }
 }
+
+
