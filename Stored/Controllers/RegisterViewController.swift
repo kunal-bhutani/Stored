@@ -316,22 +316,42 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
             FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 if let error = error {
                     strongSelf.showAlert(title: "Error", message: error.localizedDescription)
-                } else {
-                    UserDefaults.standard.setValue(email, forKey: "email")
-                    UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+                    return
+                }
 
-                    let user = User(firstName: firstName, lastName: lastName, email: email)
-                    UserData.getInstance().user = user
-                    strongSelf.performSegue(withIdentifier: "JoinCreateSegue", sender: user)
-                    DatabaseManager.shared.insertUser(with: user) { success in
-                        if success {
-                            strongSelf.uploadProfilePicture(for: user, image: image)
-                        }
+                guard let user = authResult?.user else {
+                    strongSelf.showAlert(title: "Error", message: "Failed to create account. Please try again.")
+                    return
+                }
+
+                // Send email verification
+                user.sendEmailVerification { error in
+                    if let error = error {
+                        strongSelf.showAlert(title: "Error", message: "Failed to send verification email. \(error.localizedDescription)")
+                    } else {
+                        strongSelf.showAlert(title: "Email Verification Sent", message: "A verification email has been sent to \(email). Please verify your email to proceed.")
                     }
                 }
+
+                UserDefaults.standard.setValue(email, forKey: "email")
+                UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+
+                let userData = User(firstName: firstName, lastName: lastName, email: email)
+                UserData.getInstance().user = userData
+
+                // Insert the user into the database
+                DatabaseManager.shared.insertUser(with: userData) { success in
+                    if success {
+                        strongSelf.uploadProfilePicture(for: userData, image: image)
+                    }
+                }
+                
+                // Optionally, prevent immediate navigation
+                // strongSelf.performSegue(withIdentifier: "JoinCreateSegue", sender: userData)
             }
         }
     }
+
 
     private func validateFields() -> Bool {
         if nameTextField.text?.isEmpty == true {

@@ -117,6 +117,9 @@ class JoinOrCreateHouseholdViewController: UIViewController, UITextFieldDelegate
     }
     
     @IBAction func joinButtonTapped() {
+        if ((codeTextField.text?.isEmpty) != nil) {
+            return
+        }
         guard let code = codeTextField.text else { return }
         guard let user = self.user else {
             print("User not found")

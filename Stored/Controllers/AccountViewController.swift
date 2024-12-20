@@ -121,6 +121,31 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     // Handles row selection in the table view
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath == IndexPath(row: 0, section: 1) {
+//            performSegue(withIdentifier: "HouseholdSegue", sender: indexPath)
+//        }
+//        if indexPath == IndexPath(row: 1, section: 1) {
+//            let alertController = UIAlertController(title: "Leave this house?", message: "Are you sure you want to leave this household?", preferredStyle: .alert)
+//            let leaveAction = UIAlertAction(title: "Leave", style: .default) { _ in
+//                self.confirmLeaveHousehold()
+//            }
+//            leaveAction.setValue(UIColor.red, forKey: "titleTextColor")
+//            alertController.addAction(leaveAction)
+//            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//            self.present(alertController, animated: true)
+//        }
+//        tableView.deselectRow(at: indexPath, animated: true)
+//    }
+
+    
+//    __________________
+    
+    
+    
+    
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath == IndexPath(row: 0, section: 1) {
             performSegue(withIdentifier: "HouseholdSegue", sender: indexPath)
@@ -134,10 +159,27 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
             alertController.addAction(leaveAction)
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alertController, animated: true)
+        } else if indexPath.section == 2 {
+            let titles = accountData[indexPath.section]!
+            let title = titles[indexPath.row]
+            
+            if title == "Help" {
+                if let url = URL(string: "https://stored-website.vercel.app/") {
+                    UIApplication.shared.open(url)
+                }
+            } else if title == "Privacy Statement" {
+                if let url = URL(string: "https://www.freeprivacypolicy.com/live/4d859d0e-82b9-46df-bbdb-2a642739dd3c") {
+                    UIApplication.shared.open(url)
+                }
+            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    
+    
+    
+    
     // Confirms and processes household leaving
     func confirmLeaveHousehold() {
         DatabaseManager.shared.leaveHousehold(user: UserData.getInstance().user!) { success in
